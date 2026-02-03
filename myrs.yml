@@ -1,0 +1,20 @@
+## Replication set file -> It does supports the conditions
+apiVersion: v1
+kind: ReplicaSet
+metadata:
+  name: myrs
+spec:
+  replicas: 3
+  selector: # adopt pods based on conditions
+    matchExpressions:
+      - key: env
+        operator: In
+        values: [dev, test]
+  template: # create a new pod with label (env: test)
+    metadata:
+      labels:
+        env: test
+    spec:
+      containers:
+        - name: mycontainer
+          image: nginx
