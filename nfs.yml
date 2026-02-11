@@ -18,11 +18,10 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts: # pod path
-        - name: myvolume
+        - name: myefsvolume
           mountPath: /usr/share/nginx/html
       volumes: # work node path 
-      - name: myvolume
-        hostPath: 
-          path: /home/ubuntu/bkp # created inside EBS of worker node 
-          type: DirectoryOrCreate
- 
+      - name: myefsvolume
+        nfs: 
+          path: /data # created inside EBS of worker node 
+          server: fs-0535c15e60524bfcd.efs.us-west-1.amazonaws.com
